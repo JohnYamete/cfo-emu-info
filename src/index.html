@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CFOエミュ機体情報</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.css">
+</head>
+<body class="has-navbar-fixed-top">
+
+<div id="app">
+  <navbar style="display: none;" v-show="isInitialized" v-if="isInitialized"></navbar>
+  <div class="container" style="display: none;" v-show="isInitialized" v-if="isInitialized">
+    <router-view></router-view>
+  </div>
+  <div id="loading-text" v-if="!isInitialized">Loading...</div>
+</div>
+
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
+<?!= include('bundle.js.html'); ?>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-131518048-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){
+    window.dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-131518048-1');
+</script>
+
+</body>
+</html>
