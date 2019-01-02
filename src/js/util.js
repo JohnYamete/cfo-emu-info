@@ -45,3 +45,27 @@ function updateDBToLocalStorage(data) {
 function getDBFromLocalStorage(data) {
     return JSON.parse(localStorage.getItem('dbAll'));
 }
+
+
+export function fixAllLinkUrls() {
+    const target = document.body;
+    const observer = new MutationObserver(records => {
+        records
+            .map(record => record.target)
+            .filter(tag => tag.tagName)
+            .flatMap(tag => [...tag.getElementsByTagName('a')])
+            .filter(tag => tag.tagName === 'A')
+            // .filter(tag => tag.href && !tag.href.startsWith('http'))
+            .map(tag => ({tag, href: tag.getAttribute('href')}))
+            .filter(({tag, href}) => href && href.startsWith('#'))
+            .forEach(({tag, href}) => {
+                tag.setAttribute('href', window.baseUrl + href);
+            })
+    });
+    observer.observe(target, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['href']
+    });
+}

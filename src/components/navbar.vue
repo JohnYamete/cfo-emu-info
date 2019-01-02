@@ -10,12 +10,13 @@
         </div>
 
         <div id="navbar-menu" class="navbar-menu">
-            <div class="navbar-center" @click="clickLinkWrap">
-                <router-link to="/mechas" class="navbar-item">機体</router-link>
-            </div>
-            <div class="navbar-center" @click="clickLinkWrap">
-                <router-link to="/gachas" class="navbar-item">ガチャ</router-link>
-            </div>
+            <router-link to="/mechas" class="navbar-center">
+                <span class="navbar-item">機体</span>
+            </router-link>
+
+            <router-link to="/gachas" class="navbar-center">
+                <span class="navbar-item">ガチャ</span>
+            </router-link>
 
             <div class="navbar-end">
                 <div class="navbar-item">
@@ -32,13 +33,6 @@
     export default {
         components: {
             SearchMecha,
-        },
-        methods: {
-            clickLinkWrap(e) {
-                if (e.target.nodeName === 'DIV') {
-                    e.target.getElementsByTagName('a')[0].click();
-                }
-            }
         }
     }
 </script>

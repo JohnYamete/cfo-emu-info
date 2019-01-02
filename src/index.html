@@ -24,7 +24,8 @@
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
 <script>
-  window.dbLastUpdated = "<?= dbLastUpdated ?>";
+  window.dbLastUpdated = '<?= dbLastUpdated ?>';
+  window.baseUrl = '<?= ScriptApp.getService().getUrl() ?>';
 </script>
 <?!= include('bundle.js.html'); ?>
 

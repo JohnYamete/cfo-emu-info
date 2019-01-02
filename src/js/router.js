@@ -10,7 +10,8 @@ export default class Router extends VueRouter {
     constructor() {
         super({
             routes: Router.routeParams,
-            scrollBehavior: Router.scrollBehavior
+            scrollBehavior: Router.scrollBehavior,
+            // base: window.baseUrl
         });
         this.gasRouterSync();
     }

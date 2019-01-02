@@ -6,6 +6,9 @@ import './css/main.css';
 import store from './js/store';
 import Router from './js/router'
 
+import {fixAllLinkUrls} from './js/util';
+fixAllLinkUrls();
+
 // components
 import GachaLinks from './components/gacha_links';
 Vue.component('gacha-links', GachaLinks);
