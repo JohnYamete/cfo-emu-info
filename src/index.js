@@ -14,13 +14,19 @@ import GachaLinks from './components/gacha_links';
 Vue.component('gacha-links', GachaLinks);
 import Navbar from './components/navbar';
 
+let router;
+
 store.dispatch('loadDB')
     .then(() => store.state.db)
+    .then(() => {
+        router = new Router();
+        return router.gasRouterSync();
+    })
     .then(() => {
         new Vue({
             el: '#app',
             store,
-            router: new Router(),
+            router: router,
             components: {
                 Navbar,
             },
@@ -30,6 +36,5 @@ store.dispatch('loadDB')
                 ])
             },
         });
-
     })
     .catch(err => console.error(err));

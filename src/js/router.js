@@ -11,9 +11,7 @@ export default class Router extends VueRouter {
         super({
             routes: Router.routeParams,
             scrollBehavior: Router.scrollBehavior,
-            // base: window.baseUrl
         });
-        this.gasRouterSync();
     }
 
     static get routeParams() {
@@ -57,16 +55,18 @@ export default class Router extends VueRouter {
         }
     }
 
-    gasRouterSync() {
-        // https://qiita.com/clomie/items/2361e5922f7ea5d5388d#vue-router%E3%81%A8googlescripthistory%E3%81%AE%E5%90%8C%E6%9C%9F
-        window.google.script.url.getLocation(location => {
-            const path = location.hash;
-            const query = location.parameter;
-            this.replace({ path, query });
-        });
+    async gasRouterSync() {
+        return new Promise(resolve => {
+            this.afterEach((to, from) => {
+                window.google.script.history.replace(null, to.query, to.path);
+            });
 
-        this.afterEach((to, from) => {
-            window.google.script.history.replace(null, to.query, to.path);
+            window.google.script.url.getLocation(location => {
+                const path = location.hash;
+                const query = location.parameter;
+                this.replace({ path, query });
+                resolve();
+            });
         });
     }
 }
