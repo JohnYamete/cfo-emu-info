@@ -55,7 +55,6 @@ export function fixAllLinkUrls() {
             .filter(tag => tag.tagName)
             .flatMap(tag => [...tag.getElementsByTagName('a')])
             .filter(tag => tag.tagName === 'A')
-            // .filter(tag => tag.href && !tag.href.startsWith('http'))
             .map(tag => ({tag, href: tag.getAttribute('href')}))
             .filter(({tag, href}) => href && href.startsWith('#'))
             .forEach(({tag, href}) => {
