@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {runGAS} from './util';
+import {fetchDBData} from './util';
 
 const dbTableNames = ['mechas', 'gachas', 'missions', 'designs'];
 
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     },
     actions: {
         async loadDB ({commit}) {
-            const res = await runGAS('getAll', dbTableNames);
+            const res = await fetchDBData(dbTableNames);
             Object.entries(res).forEach(([tableName, contents]) => {
                 commit('setDBData', {tableName, contents});
             });

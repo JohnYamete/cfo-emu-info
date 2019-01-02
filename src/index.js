@@ -11,7 +11,6 @@ import GachaLinks from './components/gacha_links';
 Vue.component('gacha-links', GachaLinks);
 import Navbar from './components/navbar';
 
-
 store.dispatch('loadDB')
     .then(() => store.state.db)
     .then(() => {

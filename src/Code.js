@@ -1,5 +1,9 @@
+var spreadsheetFileName = 'CFOエミュ機体情報';
+
 function doGet() {
-  var out = HtmlService.createTemplateFromFile('index').evaluate();
+  var template = HtmlService.createTemplateFromFile('index');
+  template.dbLastUpdated = getFileLastUpdated(spreadsheetFileName);
+  var out = template.evaluate();
   out.setTitle('CFOエミュ機体情報');
   return out;
 }
@@ -31,8 +35,12 @@ function getAll(sheetNames) {
 
 /*** Utilities ***/
 
+function getFileLastUpdated(filename) {
+  return DriveApp.getFilesByName(filename).next().getLastUpdated();
+}
+
 function getSpreadsheetHandler() {
-  var file = DriveApp.getFilesByName('CFOエミュ機体情報').next();
+  var file = DriveApp.getFilesByName(spreadsheetFileName).next();
   return SpreadsheetApp.open(file)
 }
 
