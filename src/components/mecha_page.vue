@@ -31,10 +31,6 @@
             <design-network :root-mecha="mecha"></design-network>
         </section>
 
-        <section class="section" v-if="mecha">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdh-R8DYW0Ji_ziFqRDdSaE2hDs8IfHPzyb9EqkjaANdWxs1A/viewform?usp=sf_link" target="_blank">お問い合わせ</a>
-        </section>
-
         <section class="section" v-if="!mecha">
             <div class="notification is-danger">
                 機体が見つかりませんでした。

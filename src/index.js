@@ -13,6 +13,7 @@ fixAllLinkUrls();
 import GachaLinks from './components/gacha_links';
 Vue.component('gacha-links', GachaLinks);
 import Navbar from './components/navbar';
+import MyFooter from './components/my-footer';
 
 let router;
 
@@ -29,6 +30,7 @@ store.dispatch('loadDB')
             router: router,
             components: {
                 Navbar,
+                MyFooter,
             },
             computed: {
                 ...mapState([
