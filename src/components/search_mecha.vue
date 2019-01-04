@@ -59,7 +59,6 @@
         background-color: #FFFFFF;
         border: 1px solid #CCCCFF;
         font-size: 90%;
-        width: 400px;
         max-height: 300px;
         overflow: auto;
     }
@@ -76,5 +75,13 @@
 
     .suggest div.over{
         background-color: #99CCFF;
+    }
+
+    .suggest .select:not(.is-multiple) {
+        height: auto;
+    }
+
+    .navbar-menu.is-active .suggest {
+        position: static;
     }
 </style>

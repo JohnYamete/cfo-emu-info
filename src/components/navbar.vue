@@ -2,14 +2,16 @@
     <nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+               @click="toggleActive"
+               :class="{'is-active': isActive}">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
 
-        <div id="navbar-menu" class="navbar-menu">
+        <div class="navbar-menu" :class="{'is-active': isActive}">
             <router-link to="/mechas" class="navbar-center">
                 <span class="navbar-item">機体</span>
             </router-link>
@@ -33,7 +35,18 @@
     export default {
         components: {
             SearchMecha,
-        }
+        },
+        data() {
+            return {
+                isActive: false
+            }
+        },
+        methods: {
+            toggleActive() {
+                this.isActive = !this.isActive;
+                console.log(this.isActive);
+            },
+        },
     }
 </script>
 
@@ -44,16 +57,23 @@
         align-items: stretch;
         display: flex;
     }
-    .navbar-item {
-        color: #fff
+
+    .navbar-center:hover,
+    .navbar-center:hover > .navbar-item {
+        background-color: #fafafa;
+        color: #3273dc;
     }
-    .navbar-center:hover, .navbar-center.is-active {
-        background-color: #00b89c;
-        cursor: pointer;
+
+    @media screen and (min-width: 1088px) {
+        .navbar.is-primary .navbar-center > .navbar-item {
+            color: #fff;
+        }
+        .navbar.is-primary .navbar-center:hover,
+        .navbar.is-primary .navbar-center:hover > .navbar-item
+        {
+            background-color: #00b89c;
+            color: #fff;
+        }
     }
-    .navbar-center:hover > .navbar-item, .navbar-center.is-active > .navbar-item {
-        color: #fff;
-        background-color: #00b89c;
-        cursor: pointer;
-    }
+
 </style>
