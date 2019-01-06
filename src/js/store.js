@@ -29,6 +29,9 @@ export default new Vuex.Store({
                 const gachas = allGachas.filter(x => x.mecha_name === mecha.name);
                 const missions = allMissions.filter(x => x.reward === mecha.name);
                 const designs = allDesigns.filter(x => x.design_mecha_name === mecha.name);
+                const canGetFree = gachas.length || designs.length || missions.length || mecha.price || mecha.package_price;
+                const canGetCharged = mecha.m_price || mecha.m_package_price;
+                const canGet = canGetFree || canGetCharged;
 
                 nameToMecha[mecha.name] = {
                     ...mecha,
@@ -41,10 +44,19 @@ export default new Vuex.Store({
                     gachaNums: gachas.map(x => x.gacha_number),
                     gachasText: gachas.map(x => x.gacha_number).join(', ') || '-',
                     designPriceText: designs.length ? designs[0].design_price + 'G' : '-',
-                    priceText: mecha.price ? mecha.price + 'G' : '-',
+                    priceText: (({price: g, m_price: m, package_price: pg, m_package_price: pm}) => {
+                        return [
+                            g && g + 'G',
+                            m && m + 'M',
+                            pg && pg + 'G(パケ)',
+                            pm && pm + 'M(パケ)',
+                        ].filter(x => x).join(', ') || '-'
+                    })(mecha),
                     missionsText: missions.length ?
                         missions.map(({reward, reward_type, name}) => `${name} (${reward_type})`).join(', ') : '-',
-                    canGetFree: gachas.length || designs.length || mecha.price || missions.length,
+                    canGetFree,
+                    canGetCharged,
+                    canGet
                 };
             });
 

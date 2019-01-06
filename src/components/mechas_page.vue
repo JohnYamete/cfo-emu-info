@@ -1,15 +1,27 @@
 <template>
     <div class="mechas-page">
         <section>
-            <div class="field">
+            <div class="field filter-block">
                 <label class="checkbox">
-                    <input type="checkbox" v-model="onlyCanGetFree">
-                    無料で入手可能なもののみを表示する
+                    <input type="checkbox" v-model="showCanGetFree">
+                    無料でのみ入手可能なものを表示
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" v-model="showCanGetCharged">
+                    有料でのみ入手可能なものを表示
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" v-model="showCanNotGet">
+                    入手不能なものを表示
                 </label>
             </div>
-            <a class="is-success" @click="expandAll">すべて開く</a>
-            <a class="is-primary" @click="collapseAll">すべて閉じる</a>
+
+            <div class="field">
+                <a class="is-success" @click="expandAll">すべて開く</a>
+                <a class="is-primary" @click="collapseAll">すべて閉じる</a>
+            </div>
         </section>
+
         <section class="section" v-for="rank in ranks">
             <div>
                 <h2 class="title">
@@ -65,7 +77,9 @@
         },
         data() {
             return {
-                onlyCanGetFree: true,
+                showCanGetFree: true,
+                showCanGetCharged: true,
+                showCanNotGet: false,
                 isExpandedRanks: (() => {
                     const isExpandRanks = {};
                     RANKS.forEach(rank => { isExpandRanks[rank] = false; });
@@ -75,10 +89,12 @@
         },
         computed: {
             ranks() {
-                let allMechas = Object.values(this.$store.state.nameToMecha);
-                if (this.onlyCanGetFree) {
-                    allMechas = allMechas.filter(x => x.canGetFree);
-                }
+                const allMechas = Object.values(this.$store.state.nameToMecha)
+                    .filter(x =>
+                        (this.showCanGetFree && x.canGetFree) ||
+                        (this.showCanGetCharged && x.canGetCharged) ||
+                        (this.showCanNotGet && !x.canGet)
+                    );
                 return RANKS.map(rank => {
                     return {
                         rank,
@@ -115,5 +131,12 @@
 
     .mechas-table {
         width: 100%;
+    }
+
+    .filter-block > label {
+        margin-left: 10px;
+    }
+    .filter-block > label:first-child {
+        margin-left: 0;
     }
 </style>
